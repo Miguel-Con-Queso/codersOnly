@@ -5,7 +5,6 @@ import { Redirect, useParams } from "react-router-dom";
 import CommentList from "../components/CommentList";
 
 import { useQuery } from "@apollo/client";
-import { QUERY_USER } from "../utils/queries";
 
 import FriendList from "../components/FriendList";
 

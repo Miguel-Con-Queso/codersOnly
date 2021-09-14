@@ -1,6 +1,5 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { QUERY_COMMENTS } from "../utils/queries";
 import CommentList from "../components/CommentList";
 import { QUERY_COMMENTS, QUERY_ME_BASIC } from "../utils/queries";
 import Auth from "../utils/auth";
