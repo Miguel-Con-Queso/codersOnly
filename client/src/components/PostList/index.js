@@ -26,8 +26,8 @@ const PostList = ({ posts, title }) => {
               <Link to={`/post/${post._id}`}>
                 <p>{post.postText}</p>
                 <p className="mb-0">
-                  Comments: {post.CommentCount} || Click to{' '}
-                  {post.CommentCount ? 'see' : 'start'} the discussion!
+                  Comments: {post.commentCount} || Click to{' '}
+                  {post.commentCount ? 'see' : 'start'} the discussion!
                 </p>
               </Link>
             </div>

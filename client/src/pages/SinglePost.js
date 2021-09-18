@@ -36,7 +36,7 @@ const SinglePost = (props) => {
       </div>
 
       {post.CommentCount > 0 && (
-        <CommentList Comments={post.comments} />
+        <CommentList comments={post.comments} />
       )}
 
       {Auth.loggedIn() && <CommentForm postId={post._id} />}
