@@ -1,36 +1,36 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
-export const QUERY_COMMENTS = gql`
-  query comments($username: String) {
-    comments(username: $username) {
+export const QUERY_POSTS = gql`
+  query posts($username: String) {
+    posts(username: $username) {
       _id
-      commentText
+      postText
       createdAt
       username
-      responseCount
-      responses {
+      commentCount
+      comments {
         _id
         createdAt
         username
-        responseBody
+        commentBody
       }
     }
   }
 `;
 
-export const QUERY_COMMENT = gql`
-  query comment($id: ID!) {
-    comment(_id: $id) {
+export const QUERY_POST = gql`
+  query post($id: ID!) {
+    post(_id: $id) {
       _id
-      commentText
+      postText
       createdAt
       username
-      responseCount
-      responses {
+      commentCount
+      comments {
         _id
         createdAt
         username
-        responseBody
+        commentBody
       }
     }
   }
@@ -47,11 +47,11 @@ export const QUERY_USER = gql`
         _id
         username
       }
-      comments {
+      posts {
         _id
-        commentText
+        postText
         createdAt
-        responseCount
+        commentCount
       }
     }
   }
@@ -64,15 +64,15 @@ export const QUERY_ME = gql`
       username
       email
       friendCount
-      comments {
+      posts {
         _id
-        commentText
+        postText
         createdAt
-        responseCount
-        responses {
+        commentCount
+        comments {
           _id
           createdAt
-          responseBody
+          commentBody
           username
         }
       }

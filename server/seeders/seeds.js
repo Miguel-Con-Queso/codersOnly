@@ -1,8 +1,10 @@
-const db = require("./connection");
-const { User, Comment } = require("../models");
+const faker = require('faker');
 
-db.once("open", async () => {
-  await Comment.deleteMany({});
+const db = require('../config/connection');
+const { Post, User } = require('../models');
+
+db.once('open', async () => {
+  await Post.deleteMany({});
   await User.deleteMany({});
 
   // create user data
@@ -26,52 +28,48 @@ db.once("open", async () => {
     let friendId = userId;
 
     while (friendId === userId) {
-      const randomUserIndex = Math.floor(
-        Math.random() * createdUsers.ops.length
-      );
+      const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
       friendId = createdUsers.ops[randomUserIndex];
     }
 
     await User.updateOne({ _id: userId }, { $addToSet: { friends: friendId } });
   }
 
-  // create comments
-  let createdComments = [];
+  // create Posts
+  let createdPosts = [];
   for (let i = 0; i < 100; i += 1) {
-    const commentText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+    const postText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { username, _id: userId } = createdUsers.ops[randomUserIndex];
 
-    const createdComment = await Comment.create({ commentText, username });
+    const createdPost = await Post.create({ PostText, username });
 
     const updatedUser = await User.updateOne(
       { _id: userId },
-      { $push: { comments: createdComment._id } }
+      { $push: { posts: createdPost._id } }
     );
 
-    createdComments.push(createdComment);
+    createdPosts.push(createdPost);
   }
 
-  // create responses
+  // create Comments
   for (let i = 0; i < 100; i += 1) {
-    const responseBody = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+    const commentBody = faker.lorem.words(Math.round(Math.random() * 20) + 1);
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { username } = createdUsers.ops[randomUserIndex];
 
-    const randomCommentIndex = Math.floor(
-      Math.random() * createdComments.length
-    );
-    const { _id: commentId } = createdComments[randomCommentIndex];
+    const randomPostIndex = Math.floor(Math.random() * createdPosts.length);
+    const { _id: PostId } = createdPosts[randomPostIndex];
 
-    await Comment.updateOne(
-      { _id: commentId },
-      { $push: { responses: { responseBody, username } } },
+    await Post.updateOne(
+      { _id: postId },
+      { $push: { comments: { commentBody, username } } },
       { runValidators: true }
     );
   }
 
-  console.log("all done!");
+  console.log('all done!');
   process.exit(0);
 });
