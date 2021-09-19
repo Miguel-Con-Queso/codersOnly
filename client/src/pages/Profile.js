@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, useParams } from 'react-router-dom';
+import { Link, Redirect, useParams } from 'react-router-dom';
 
 import PostForm from '../components/PostForm';
 import PostList from '../components/PostList';
@@ -50,35 +50,61 @@ const Profile = (props) => {
 
   return (
     <div>
-      <div className="flex-row mb-3">
-        <h2 className="bg-dark text-secondary p-3 display-inline-block">
-          Viewing {userParam ? `${user.username}'s` : 'your'} profile.
-        </h2>
+      <div className="container margin-top:20px">
+        <div className="flex-row justify-center justify-space-between-md align-stretch">
+        <div className="col-12 col-md-3">
+          <ul className="nav nav-pills flex column">
+            <li className="nav-item">
+              <Link to="/">
+                <h1>Home</h1>
+              </Link>
 
-        {userParam && (
-          <button className="btn ml-auto" onClick={handleClick}>
-            Add Friend
-          </button>
-        )}
-      </div>
+            </li>
 
-      <div className="flex-row justify-space-between mb-3">
-        <div className="col-12 mb-3 col-lg-8">
+            <li className="nav-item">
+              <Link to="/">
+                <h1>{user.username}</h1>
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link to="/">
+                <h1>FriendsList</h1>
+              </Link>
+            </li>
+          </ul>
+
+          </div>
+          <div className="col-12 col-md-9">
+            <h2 className="bg-dark text-secondary p-3 display-inline-block">
+              {userParam ? `${user.username}'s` : `${user.username}`}
+            </h2>
+
+            {userParam && (
+              <button className="btn ml-auto" onClick={handleClick}>
+                Add Friend
+              </button>
+            )}
+      
+
           <PostList
             posts={user.posts}
             title={`${user.username}'s Posts...`}
           />
-        </div>
 
-        <div className="col-12 col-lg-3 mb-3">
+
+
           <FriendList
             username={user.username}
             friendCount={user.friendCount}
             friends={user.friends}
           />
+
+
+          <div className="ml-auto">{!userParam && <PostForm />}</div>
+          </div>
         </div>
       </div>
-      <div className="mb-3">{!userParam && <PostForm />}</div>
     </div>
   );
 };
