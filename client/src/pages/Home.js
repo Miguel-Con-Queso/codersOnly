@@ -2,7 +2,7 @@ import React from 'react';
 import PostList from '../components/PostList';
 import PostForm from '../components/PostForm';
 import FriendList from '../components/FriendList';
-
+import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import { useQuery } from '@apollo/client';
 import { QUERY_POSTS, QUERY_ME_BASIC } from '../utils/queries';
@@ -15,35 +15,59 @@ const Home = () => {
   const loggedIn = Auth.loggedIn();
 
   return (
-    <main>
-      <div className="flex-row justify-space-between">
-        {loggedIn && (
-          <div className="col-12 mb-3">
-            <PostForm />
+    <main className="container">
+      <div className="flex-row justify-center justify-space-between-md align-stretch">
+        <div className="col-12 col-md-3">
+          <ul className="nav nav-pills flex column">
+            <li className="nav-item">
+              <Link to="/">
+                <h1>Home</h1>
+              </Link>
+
+            </li>
+
+            <li className="nav-item">
+              <Link to="/">
+                <h1>test</h1>
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link to="/">
+                <h1>FriendsList</h1>
+              </Link>
+            </li>
+          </ul>
+
           </div>
-        )}
-        <div className={`col-12 mb-3 ${loggedIn && 'col-lg-8'}`}>
+          <div className="col-12 col-md-9">
+      <div >
+        
+        <div className={`${loggedIn}`}>
           {loading ? (
             <div>Loading...</div>
           ) : (
             <PostList
               posts={posts}
-              title="Some Feed for Post(s)..."
+              title="codersOnly Forum"
             />
           )}
         </div>
         {loggedIn && userData ? (
-          <div className="col-12 col-lg-3 mb-3">
+          
             <FriendList
               username={userData.me.username}
               friendCount={userData.me.friendCount}
               friends={userData.me.friends}
             />
-          </div>
+       
         ) : null}
+        </div>
+      </div>
       </div>
     </main>
   );
 };
 
 export default Home;
+
