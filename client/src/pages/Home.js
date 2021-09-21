@@ -19,7 +19,7 @@ const Home = () => {
       <div className="flex-row justify-center justify-space-between-md align-stretch">
         <div className="col-12 col-md-3">
           <ul className="nav nav-pills flex column">
-            <li className="nav-item">
+            <li className="nav-item border border-secondary">
               <Link to="/">
                 <h1>Home</h1>
               </Link>
@@ -39,31 +39,22 @@ const Home = () => {
             </li>
           </ul>
 
+        </div>
+        <div className="col-12 col-md-9">
+          <div >
+
+            <div className={`${loggedIn}`}>
+              {loading ? (
+                <div>Loading...</div>
+              ) : (
+                <PostList
+                  posts={posts}
+                  title="codersOnly Forum"
+                />
+              )}
+            </div>
           </div>
-          <div className="col-12 col-md-9">
-      <div >
-        
-        <div className={`${loggedIn}`}>
-          {loading ? (
-            <div>Loading...</div>
-          ) : (
-            <PostList
-              posts={posts}
-              title="codersOnly Forum"
-            />
-          )}
         </div>
-        {loggedIn && userData ? (
-          
-            <FriendList
-              username={userData.me.username}
-              friendCount={userData.me.friendCount}
-              friends={userData.me.friends}
-            />
-       
-        ) : null}
-        </div>
-      </div>
       </div>
     </main>
   );

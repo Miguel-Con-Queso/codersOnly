@@ -86,7 +86,7 @@ const Profile = (props) => {
               </button>
             )}
       
-
+      <div className="ml-auto">{!userParam && <PostForm />}</div>
           <PostList
             posts={user.posts}
             title={`${user.username}'s Posts...`}
@@ -100,8 +100,6 @@ const Profile = (props) => {
             friends={user.friends}
           />
 
-
-          <div className="ml-auto">{!userParam && <PostForm />}</div>
           </div>
         </div>
       </div>
