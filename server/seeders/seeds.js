@@ -1,9 +1,9 @@
-const faker = require('faker');
+const faker = require("faker");
 
-const db = require('../config/connection');
-const { Post, User } = require('../models');
+const db = require("../config/connection");
+const { Post, User } = require("../models");
 
-db.once('open', async () => {
+db.once("open", async () => {
   await Post.deleteMany({});
   await User.deleteMany({});
 
@@ -28,7 +28,9 @@ db.once('open', async () => {
     let friendId = userId;
 
     while (friendId === userId) {
-      const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
+      const randomUserIndex = Math.floor(
+        Math.random() * createdUsers.ops.length
+      );
       friendId = createdUsers.ops[randomUserIndex];
     }
 
@@ -43,7 +45,7 @@ db.once('open', async () => {
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { username, _id: userId } = createdUsers.ops[randomUserIndex];
 
-    const createdPost = await Post.create({ PostText, username });
+    const createdPost = await Post.create({ postText, username });
 
     const updatedUser = await User.updateOne(
       { _id: userId },
@@ -61,7 +63,7 @@ db.once('open', async () => {
     const { username } = createdUsers.ops[randomUserIndex];
 
     const randomPostIndex = Math.floor(Math.random() * createdPosts.length);
-    const { _id: PostId } = createdPosts[randomPostIndex];
+    const { _id: postId } = createdPosts[randomPostIndex];
 
     await Post.updateOne(
       { _id: postId },
@@ -70,6 +72,6 @@ db.once('open', async () => {
     );
   }
 
-  console.log('all done!');
+  console.log("all done!");
   process.exit(0);
 });
