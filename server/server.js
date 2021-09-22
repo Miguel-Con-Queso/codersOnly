@@ -1,5 +1,6 @@
 const path = require("path");
 const express = require("express");
+const fileUpload = require("express-fileupload");
 // import ApolloServer
 const { ApolloServer } = require("apollo-server-express");
 
@@ -28,15 +29,36 @@ server.start().then(() => {
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+app.use(fileUpload());
+>>>>>>> feature/uploadImgs
+
+// Upload Enpoint
+app.post("/uploads", (req, res) => {
+  if (req.files === null) {
+    return res.status(400).json({ msg: "No file uploaded" });
+  }
+
+  const file = req.files.file;
+
+  file.mv(`../client/public/uploads/${file.name}`, (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send(err);
+    }
+
+    res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
+  });
+});
 
 // serve up static assets
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
 }
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 =======
  //serve up static assets
@@ -49,7 +71,7 @@ if (process.env.NODE_ENV === 'production') {
  });
 >>>>>>> c9e61699537b0ad25b6fcc8871b02b9fffda1c6d
 
-db.once('open', () => {
+db.once("open", () => {
   app.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);
     // log where we can go to test our GQL API
