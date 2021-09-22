@@ -74,7 +74,9 @@ p {
   font-size: 1.1rem;
   margin-top: 0;
 }
-
+li {
+  list-style: none;
+}
 a {
   color: var(--dark);
   text-decoration: none;
