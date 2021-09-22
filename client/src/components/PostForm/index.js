@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from "react";
 
-import { useMutation } from '@apollo/client';
-import { ADD_POST } from '../../utils/mutations';
-import { QUERY_POSTS, QUERY_ME } from '../../utils/queries';
+import { useMutation } from "@apollo/client";
+import { ADD_POST } from "../../utils/mutations";
+import { QUERY_POSTS, QUERY_ME } from "../../utils/queries";
+import axios from "axios";
 
 const PostForm = () => {
-  const [postText, setText] = useState('');
+  const [postText, setText] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
 
   const [addPost, { error }] = useMutation(ADD_POST, {
@@ -49,17 +50,50 @@ const PostForm = () => {
       });
 
       // clear form value
-      setText('');
+      setText("");
       setCharacterCount(0);
     } catch (e) {
       console.error(e);
     }
   };
 
+  const [file, setFile] = useState("");
+  const [filename, setFilename] = useState("Choose File");
+  const [uploadedFile, setUploadedFile] = useState({});
+
+  const onChange = (e) => {
+    setFile(e.target.files[0]);
+    setFilename(e.target.files[0].name);
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await axios.post("/uploads", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const { fileName, filePath } = res.data;
+
+      setUploadedFile({ fileName, filePath });
+    } catch (err) {
+      if (err.response.status === 500) {
+        console.log("There was a problem with the server");
+      } else {
+        console.log(err.response.data.msg);
+      }
+    }
+  };
+
   return (
     <div>
       <p
-        className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}
+        className={`m-0 ${characterCount === 280 || error ? "text-error" : ""}`}
       >
         Character Count: {characterCount}/280
         {error && <span className="ml-2">Something went wrong...</span>}
@@ -68,7 +102,6 @@ const PostForm = () => {
         className="flex-row justify-center justify-space-between-md align-stretch"
         onSubmit={handleFormSubmit}
       >
-        
         <textarea
           placeholder="Here's a new Post..."
           value={postText}
@@ -79,6 +112,39 @@ const PostForm = () => {
           Submit
         </button>
       </form>
+
+      <Fragment>
+        <form onSubmit={onSubmit}>
+          <div className="custom-file mb-4">
+            <input
+              type="file"
+              className="custom-file-input"
+              id="customFile"
+              onChange={onChange}
+            />
+            <label className="custom-file-label" htmlFor="customFile">
+              {filename}
+            </label>
+          </div>
+          <input
+            type="submit"
+            value="Upload"
+            className="btn btn-primary btn-block mt-4"
+          />
+        </form>
+        {uploadedFile ? (
+          <div className="row mt-5">
+            <div className="col-md-6 m-auto">
+              <h3 className="text-center">{uploadedFile.fileName}</h3>
+              <img
+                styel={{ width: "50%" }}
+                src={uploadedFile.filePath}
+                alt=""
+              />
+            </div>
+          </div>
+        ) : null}
+      </Fragment>
     </div>
   );
 };
