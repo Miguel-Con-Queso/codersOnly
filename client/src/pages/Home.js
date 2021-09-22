@@ -1,11 +1,11 @@
-import React from 'react';
-import PostList from '../components/PostList';
-import PostForm from '../components/PostForm';
-import FriendList from '../components/FriendList';
-import { Link } from 'react-router-dom';
-import Auth from '../utils/auth';
-import { useQuery } from '@apollo/client';
-import { QUERY_POSTS, QUERY_ME_BASIC } from '../utils/queries';
+import React from "react";
+import PostList from "../components/PostList";
+import PostForm from "../components/PostForm";
+import FriendList from "../components/FriendList";
+import { Link } from "react-router-dom";
+import Auth from "../utils/auth";
+import { useQuery } from "@apollo/client";
+import { QUERY_POSTS, QUERY_ME_BASIC } from "../utils/queries";
 
 const Home = () => {
   const { loading, data } = useQuery(QUERY_POSTS);
@@ -23,34 +23,24 @@ const Home = () => {
               <Link to="/">
                 <h1>Home</h1>
               </Link>
-
             </li>
 
             <li className="nav-item">
-              <Link to="/">
-                <h1>test</h1>
-              </Link>
+              <PostForm />
             </li>
 
             <li className="nav-item">
-              <Link to="/">
-                <h1>FriendsList</h1>
-              </Link>
+              <FriendList />
             </li>
           </ul>
-
         </div>
         <div className="col-12 col-md-9">
-          <div >
-
+          <div>
             <div className={`${loggedIn}`}>
               {loading ? (
                 <div>Loading...</div>
               ) : (
-                <PostList
-                  posts={posts}
-                  title="codersOnly Forum"
-                />
+                <PostList posts={posts} title="codersOnly Forum" />
               )}
             </div>
           </div>
@@ -61,4 +51,3 @@ const Home = () => {
 };
 
 export default Home;
-
