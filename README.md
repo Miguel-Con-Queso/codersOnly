@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> c9e61699537b0ad25b6fcc8871b02b9fffda1c6d
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Table of Contents</summary>
@@ -46,3 +50,32 @@
     npm install
 3. NPM Run
     npm run
+<<<<<<< HEAD
+=======
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> c9e61699537b0ad25b6fcc8871b02b9fffda1c6d

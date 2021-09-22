@@ -27,6 +27,7 @@ server.start().then(() => {
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+<<<<<<< HEAD
 
 // serve up static assets
 if (process.env.NODE_ENV === 'production') {
@@ -37,6 +38,16 @@ if (process.env.NODE_ENV === 'production') {
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
+=======
+ //serve up static assets
+if (process.env.NODE_ENV === 'production') {
+   app.use(express.static(path.join(__dirname, '../client/build')));
+ }
+
+ app.get('*', (req, res) => {
+   res.sendFile(path.join(__dirname, '../client/build/index.html'));
+ });
+>>>>>>> c9e61699537b0ad25b6fcc8871b02b9fffda1c6d
 
 db.once('open', () => {
   app.listen(PORT, () => {
