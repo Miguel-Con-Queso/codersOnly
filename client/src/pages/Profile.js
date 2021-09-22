@@ -49,33 +49,29 @@ const Profile = (props) => {
   };
 
   return (
-    <div>
-      <div className="container margin-top:20px">
-        <div className="flex-row justify-center justify-space-between-md align-stretch">
-        <div className="col-12 col-md-3">
+    <div className="container">
+      <div className="flex-row justify-center justify-space-between-md">
+        <div className="navbar-left col-12 col-md-3">
           <ul className="nav nav-pills flex column">
             <li className="nav-item">
-              <Link to="/">
-                <h1>Home</h1>
-              </Link>
-
-            </li>
-
-            <li className="nav-item">
-              <Link to="/">
+              <Link to="/Profile">
                 <h1>{user.username}</h1>
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to=" <FriendList />">
+                <h1>Forums</h1>
+              </Link>
+            </li>
 
             <li className="nav-item">
-              <Link to="/">
-                <h1>FriendsList</h1>
+              <Link to=" <FriendList />">
+                <h1>Friends</h1>
               </Link>
             </li>
           </ul>
-
-          </div>
-          <div className="col-12 col-md-9">
+        </div>
+        <div className="navbar-right col-12 col-md-9 p-4">
             <h2 className="bg-dark text-secondary p-3 display-inline-block">
               {userParam ? `${user.username}'s` : `${user.username}`}
             </h2>
@@ -103,7 +99,6 @@ const Profile = (props) => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
