@@ -16,26 +16,30 @@ const Home = () => {
 
   return (
     <main className="container">
-      <div className="flex-row justify-center justify-space-between-md align-stretch">
-        <div className="col-12 col-md-3">
+      <div className="flex-row justify-center justify-space-between-md">
+        <div className="navbar-left col-12 col-md-3">
           <ul className="nav nav-pills flex column">
-            <li className="nav-item border border-secondary">
-              <Link to="/">
-                <h1>Home</h1>
+            <li className="nav-item">
+              <Link to="/Profile">
+                <h1>Profile</h1>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to=" <FriendList />">
+                <h1>Forums</h1>
               </Link>
             </li>
 
             <li className="nav-item">
-              <PostForm />
-            </li>
-
-            <li className="nav-item">
-              <FriendList />
+              <Link to=" <FriendList />">
+                <h1>Friends</h1>
+              </Link>
             </li>
           </ul>
         </div>
-        <div className="col-12 col-md-9">
+        <div className="navbar-right col-12 col-md-9 p-4">
           <div>
+          <PostForm />
             <div className={`${loggedIn}`}>
               {loading ? (
                 <div>Loading...</div>
